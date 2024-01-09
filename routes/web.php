@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route; // Menggunakan fasilitas routing dari Laravel
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginController; // Menggunakan controller LoginController untuk mengatur login
 use App\Http\Controllers\RegisterController; // Menggunakan controller RegisterController untuk mengatur register
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,18 +19,40 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/', function () {
     return view('admin.dashboard');
     });
-    Route::resource('products', ProductController::class);
+    Route::resource('laporans', ReportController::class);
 });
 
-Route::get('/dashboard', function () { // Mengatur rute untuk halaman utama
-    return view('dashboard'); // Menampilkan view welcome
+Route::get('/', function () { 
+    return view('auth.login'); 
 });
 
 
-Route::prefix('/admin')->middleware('auth')->group(function() { // Mengatur rute untuk admin dengan middleware auth
-    Route::get('/', function () { // Mengatur rute untuk halaman dashboard admin
-        return view('admin.dashboard'); // Menampilkan view admin.dashboard
+Route::prefix('/admin')->middleware('auth')->group(function() { 
+    Route::get('/', function () { 
+        return view('admin.dashboard'); 
     });
+});
+
+Route::prefix('user')->middleware('auth')->group(function() { 
+    Route::get('/home', function () { 
+        return view('user.home', ["title"=> "home"]); 
+    });
+    Route::resource('laporans', ReportController::class);
+});
+
+
+Route::get('/about', function () { 
+    return view('user.about', ["title"=> "about"]); 
+});
+
+Route::get('/stats', function () { 
+    return view('user.stats', ["title"=> "stats"]); 
+});
+
+//  Route::get('/report', ReportController::class);
+
+Route::get('/report', function () { 
+    return view('user.report.index'); 
 });
 
 Route::get('/login', [LoginController::class, 'index'])->name('login'); // Mengatur rute untuk halaman login
