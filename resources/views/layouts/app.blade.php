@@ -5,9 +5,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Layad Administrator</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/img/logos/favicon.png" />
-  <link rel="stylesheet" href="../assets/css/styles.min.css" />
-  <link rel="stylesheet" href="../assets/css/style1.css" />
+  <link rel="shortcut icon" type="image/png" href="{{ asset('assets/img/logos/favicon.png')}}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css')}}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/style1.css')}}" />
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
   
 </head>
 
@@ -20,8 +24,8 @@
       <!-- Sidebar scroll-->
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-between">
-          <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../assets/img/logos/logo.png" width="60px" alt="" />
+          <a href="/admin" class="text-nowrap logo-img">
+            <img src="{{ asset('assets/img/logos/logo.png')}}" width="60px" alt="" />
             <span style="color: black; font-size: 16px; font-weight: bold;">Layad Administrator</span>
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -36,7 +40,7 @@
               <span class="hide-menu">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./index.html" aria-expanded="false">
+              <a class="sidebar-link" href="/admin" aria-expanded="false">
                 <span>
                   <i class="ti ti-layout-dashboard"></i>
                 </span>
@@ -48,7 +52,7 @@
               <span class="hide-menu">REPORT</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+              <a class="sidebar-link" href="/reportlist" aria-expanded="false">
                 <span>
                   <i class="ti ti-article"></i>
                 </span>
@@ -56,31 +60,20 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
+              <a class="sidebar-link" href="/completelist" aria-expanded="false">
                 <span>
                   <i class="ti ti-alert-circle"></i>
                 </span>
                 <span class="hide-menu">Report Complete</span>
               </a>
             </li>
-            <li class="nav-small-cap">
-              <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">AUTH</span>
-            </li>
+            <div class="dropdown-divider"></div>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+              <a class="sidebar-link" href="#" data-toggle="modal" data-target="#logoutModal" aria-expanded="false" style="color: red">
                 <span>
-                  <i class="ti ti-login"></i>
+                  <i class="ti ti-login fas fa-sign-out-alt"></i>
                 </span>
-                <span class="hide-menu">Login</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
-                <span>
-                  <i class="ti ti-user-plus"></i>
-                </span>
-                <span class="hide-menu">Register</span>
+                <span class="hide-menu" style="color: red">Logout</span>
               </a>
             </li>
           </ul>
@@ -95,36 +88,27 @@
       <!--  Header Start -->
       <header class="app-header">
         <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
-            </li>
-          </ul>
           <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
               <li class="nav-item">
-                <a class="nav-link nav-icon-hover" href="javascript:void(0)">
+                <a class="nav-link nav-icon-hover" href="#" id="notificationDropdownToggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="ti ti-bell-ringing"></i>
                   <div class="notification bg-primary rounded-circle"></div>
                 </a>
+            
+                <!-- Notification Dropdown -->
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdownToggle">
+                  <!-- Notification Items (you can dynamically generate these) -->
+                  <a class="dropdown-item" href="#">10-01-2024:17.12, Laporan selesai</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">05-01-2024:17.56, Laporan masuk</a>
+                  <!-- Add more items as needed -->
+                </div>
               </li>
               <!-- Nav Item - User Information -->
-              <li class="nav-item dropdown no-arrow">
-                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="../assets/img/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                <a class="nav-link">
+                    <span class="mr-2 d-none d-lg-inline" style="color: #007bff">{{Auth::user()->name}}</span>
                 </a>
-                <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                    aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/login" data-toggle="modal" data-target="#logoutModal">
-                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
-                </div>
-            </li>
             </ul>
           </div>
         </nav>
@@ -132,15 +116,33 @@
       <!--  Header End -->
       
       @yield('content')
+      <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">×</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                  <div class="modal-footer">
+                      <button class="btn btn-secondary" style="background-color:grey" type="button" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-primary" href="{{ route('logout') }}">Logout</a>
+                  </div>
+              </div>
+          </div>
+        </div>
     </div>
   </div>
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-  <script src="../assets/js/dashboard.js"></script>
+  <script src="{{ asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+  <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{ asset('assets/js/sidebarmenu.js')}}"></script>
+  <script src="{{ asset('assets/js/app.min.js')}}"></script>
+  <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+  <script src="{{ asset('assets/libs/simplebar/dist/simplebar.js')}}"></script>
+  <script src="{{ asset('assets/js/dashboard.js')}}"></script>
 </body>
 
 </html>

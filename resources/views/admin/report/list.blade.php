@@ -1,18 +1,19 @@
-@extends('layouts.user')
+@extends('layouts.app')
 
 @section('content')
 <main id="main">
-    <div class="container mt-5">
+    <div class="container mt-0">
         <div class="pagetitle">
-            <div class="d-flex justify-content-between mx-2">
-                <h1>Laporan Anda</h1>
+            <div class="d-flex justify-content-between mx-0">
+                <h1>Data Laporans</h1>
+                <a href="/" class="btn btn-primary">Tambah Laporan</a>
             </div>
             <nav class="ms-2">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('laporans.index') }}">My Report</a>
+                        <a href="/">My Report</a>
                     </li>
-                    <li class="breadcrumb-item"></li>
+                    <li class="breadcrumb-item">{{ Request::segment(2) }}</li>
                 </ol>
             </nav>
         </div>
@@ -65,15 +66,10 @@
                             <td>
                                 <div class="d-flex gap-2">
                                     @if($d->status !== 'selesai')
-                                        <a href="{{ route('user.laporans.edit', $d->id) }}" class="btn btn-warning">edit</a>
-                                        <form action="{{ route('laporans.destroy', $d->id) }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger">delete</button>
-                                        </form>
+                                    <a href="{{ route('admin.laporans.send', $d->id) }}" class="btn" style="background-color:limegreen; color:aliceblue">Selesaikan</a>
                                     @else
-                                        <a class="btn" style="background-color: grey; color:aliceblue; border-style:">Terselesaikan</a>
-                                    @endif
+                                    <a class="btn" style="background-color: grey; color:aliceblue; border-style:">Terselesaikan</a>
+                                @endif
                                 </div>
                             </td>
                         </tr>

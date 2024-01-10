@@ -11,8 +11,26 @@ class ReportController extends Controller
     public function index()
     {
         $data = laporan::all();
-        return view('user.report.index', ['title' => 'none'], [
-            'data' => $data 
+        $jumlahLaporanMasuk = count($data); 
+        $jumlahLaporanSelesai = laporan::where('status', 'selesai')->count();
+        return view('user.report.index', ['title' => 'none'], 
+        [
+            'data' => $data,
+            'jumlahLaporanMasuk' => $jumlahLaporanMasuk,
+            'jumlahLaporanSelesai' => $jumlahLaporanSelesai, 
+        ]);
+    }
+
+    public function countreport()
+    {
+        $data = laporan::all();
+        $jumlahLaporanMasuk = count($data); 
+        $jumlahLaporanSelesai = laporan::where('status', 'selesai')->count();
+        return view('user.stats', ['title' => 'stats'], 
+        [
+            'data' => $data,
+            'jumlahLaporanMasuk' => $jumlahLaporanMasuk,
+            'jumlahLaporanSelesai' => $jumlahLaporanSelesai, 
         ]);
     }
 
@@ -76,7 +94,7 @@ class ReportController extends Controller
             'user_id' => auth()->user()->id,
         ]);
     
-        return redirect()->route('laporans.create');
+        return redirect()->route('home')->with('success', 'Laporan berhasil dikirim!');
     }
 
     /**
@@ -84,8 +102,8 @@ class ReportController extends Controller
      */
     public function edit(string $id)
     {
-        $data = Product::where('id', $id)->first();
-        return view('user.report.edit', ['data' => $data]);
+        $data = laporan::where('id', $id)->first();
+        return view('user.report.edit', ['title' => 'none'], ['data' => $data]);
     }
 
     /**
@@ -140,7 +158,7 @@ class ReportController extends Controller
 
             laporan::where('id', $id)->update($data);
 
-            return redirect()->route('user.home');
+            return redirect()->route('report');
     }
 
     /**
@@ -149,6 +167,6 @@ class ReportController extends Controller
     public function destroy(string $id)
     {
         laporan::where('id', $id)->delete();
-        return redirect()->route('report.index');
+        return redirect()->route('laporans.index');
     }
 }

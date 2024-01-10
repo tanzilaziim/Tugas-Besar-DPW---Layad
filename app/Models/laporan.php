@@ -17,5 +17,9 @@ class laporan extends Model
         'isi',
         'bukti',
         'user_id',
+        'status',
+        'tanggal_selesai',
+        'solusi',
+        'kesimpulan'
     ];
 }

@@ -1,6 +1,12 @@
 @extends('layouts.user')
 
 @section('content')
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>	
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
        <!-- Home -->
         <div class="container-fluid p-0 wow fadeIn" data-wow-delay="0.1s">
             <div
@@ -170,7 +176,7 @@
                         data-wow-delay="0.1s"
                     >
                         <div style="background-color: #007bff ;" class="text-center px-5 py-5 mb-4">
-                            <h1 style="color: white">Report</h1>
+                            <h1 style="color: white">Halaman Laporan</h1>
                             <form action="{{ route('laporans.store') }}" method="POST" enctype="multipart/form-data" class="mb-5">
                                 @csrf
                                 <div class="row g-3">

@@ -22,6 +22,10 @@ return new class extends Migration
             $table->string('tempat');
             $table->string('isi');
             $table->string('bukti');
+            $table->enum('status', ['selesai', 'belum'])->default('belum');
+            $table->date('tanggal_selesai')->nullable()->default(null);
+            $table->string('solusi')->nullable()->default(null);
+            $table->string('kesimpulan')->nullable()->default(null);
             $table->timestamps();
         });
     }

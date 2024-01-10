@@ -45,6 +45,11 @@
 
         <!-- Template Stylesheet -->
         <link href="{{ asset('assets/css/style1.css') }}" rel="stylesheet" />
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -79,9 +84,9 @@
             <!-- Struktur navigasi -->
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav mr-auto p-5 p-lg-0">
-                <a href="{{ route('laporans.create') }}" class="nav-item nav-link {{$title === "home"? "active": "" }}">Home</a>
-                <a href="/about" class="nav-item nav-link {{$title === "about"? "active": "" }}">About</a>
-                <a href="/stats" class="nav-item nav-link {{$title === "stats"? "active": "" }}">Statistics</a>
+                <a href="/home" class="nav-item nav-link {{$title === "home"? "active": "" }}">HOME</a>
+                <a href="/about" class="nav-item nav-link {{$title === "about"? "active": "" }}">ABOUT</a>
+                <a href="/stats" class="nav-item nav-link {{$title === "stats"? "active": "" }}">STATISTICS</a>
             </div>
             <div class="navbar-nav ms-auto">
                 <div class="nav-item dropdown ms-0" style="position: relative;">
@@ -89,9 +94,9 @@
                         <img src="{{ asset('assets/img/profile/user-1.jpg') }}" width="35" height="35" class="rounded-circle" style="margin-left: -130px;">
                     </a>
                     <div class="dropdown-menu bg-light m-0 ms-0" style="position: absolute; top: 100%; left: -130px;">
-                        <a href="{{ route('laporans.index') }}" class="dropdown-item">My Report</a>
+                        <a href="/report" class="dropdown-item">My Report</a>
                         <div class="dropdown-divider"></div>
-                        <a href="/login" class="dropdown-item">Logout</a>
+                        <a href="#" data-toggle="modal" data-target="#logoutModal" class="dropdown-item">Logout</a>
                     </div>
                 </div>
             </div>
@@ -111,8 +116,8 @@
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-white mb-4">Get In Touch</h4>
                     <p class="mb-2">
-                        <i class="fa fa-map-marker-alt me-3"></i>D.I Pandjaitan Street,
-                        Purwokerto Selatan, Banyumas, Indonesia.
+                        <i class="fa fa-map-marker-alt me-3"></i>Jl. D.I Pandjaitan No.128,
+                        <br>Purwokerto Selatan, Kab. Banyumas, Jawa Tengah, Indonesia.
                     </p>
                     <p class="mb-2">
                         <i class="fa fa-phone-alt me-3"></i>+62 87848355561
@@ -123,7 +128,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <h4 class="text-light mb-4">Quick Links</h4>
-                    <a class="btn btn-link" href="about.html">About Us</a>
+                    <a class="btn btn-link" href="/about">About Us</a>
                     <a class="btn btn-link" href="https://wa.me/6287848355561">Contact</a>
                     </div>
                 </div>
@@ -143,7 +148,26 @@
             </div>
         </div>
         <!-- Copyright End -->
-
+        
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" style="background-color: #007bff" href="{{ route('logout') }}">Logout</a>
+                    </div>
+                </div>
+            </div>
+          </div>
+        <!--  Header End -->
 
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
